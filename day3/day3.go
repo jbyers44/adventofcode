@@ -28,7 +28,7 @@ func part1() {
 		compartment2 := runes[len(line)/2:]
 
 		for _, item := range compartment2 {
-			if contains(compartment1, item) {
+			if utils.Contains(compartment1, item) {
 				total += strings.Index(items, string(item)) + 1
 				break
 			}
@@ -61,7 +61,7 @@ func part2() {
 			runes := []rune(line)
 
 			for _, item := range runes {
-				if contains([]rune(elfgroups[elfgroup][lines-1]), item) && contains([]rune(elfgroups[elfgroup][lines-2]), item) {
+				if utils.Contains([]rune(elfgroups[elfgroup][lines-1]), item) && utils.Contains([]rune(elfgroups[elfgroup][lines-2]), item) {
 					total += strings.Index(items, string(item)) + 1
 					break
 				}
@@ -74,14 +74,4 @@ func part2() {
 	}
 
 	fmt.Printf("%v\n", total)
-}
-
-func contains(list []rune, char rune) bool {
-	for _, v := range list {
-		if v == char {
-			return true
-		}
-	}
-
-	return false
 }
