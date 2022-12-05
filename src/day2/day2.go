@@ -30,7 +30,7 @@ func main() {
 		'Z': 2,
 	}
 
-	file := utils.OpenFile("../input/day2.txt")
+	file := utils.OpenFile("../../input/day2.txt")
 	scanner := bufio.NewScanner(file)
 
 	p1_total := 0

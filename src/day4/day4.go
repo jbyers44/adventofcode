@@ -14,7 +14,7 @@ func main() {
 }
 
 func part1() {
-	file := utils.OpenFile("../input/day4.txt")
+	file := utils.OpenFile("../../input/day4.txt")
 	scanner := bufio.NewScanner(file)
 
 	total := 0
@@ -39,7 +39,7 @@ func part1() {
 }
 
 func part2() {
-	file := utils.OpenFile("../input/day4.txt")
+	file := utils.OpenFile("../../input/day4.txt")
 	scanner := bufio.NewScanner(file)
 
 	total := 0

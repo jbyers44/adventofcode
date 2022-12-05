@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	file := utils.OpenFile("../input/day1.txt")
+	file := utils.OpenFile("../../input/day1.txt")
 	scanner := bufio.NewScanner(file)
 
 	elfs := []int{0}
