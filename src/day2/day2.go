@@ -2,47 +2,26 @@ package main
 
 import (
 	"adventofcode2022/utils"
-	"bufio"
 	"fmt"
 )
 
 func main() {
-	p1_outcomes := [3][3]int{
-		// A, B ,C
-		{4, 1, 7}, // X, rock
-		{8, 5, 2}, // Y, paper
-		{3, 9, 6}, // Z, scissors
-	}
-
-	p2_outcomes := [3][3]int{
-		// A, B ,C
-		{3, 1, 2}, // X, lose
-		{4, 5, 6}, // Y, draw
-		{8, 9, 7}, // Z, win
-	}
-
-	choices := map[rune]int{
-		'A': 0,
-		'B': 1,
-		'C': 2,
-		'X': 0,
-		'Y': 1,
-		'Z': 2,
-	}
-
 	file := utils.OpenFile("../../input/day2.txt")
-	scanner := bufio.NewScanner(file)
+	lines := utils.FileLines(file)
 
-	p1_total := 0
-	p2_total := 0
-	for scanner.Scan() {
-		line := scanner.Text()
+	p1, p2 := 0, 0
+	for _, line := range lines {
+		l := []rune(line)
 
-		chars := []rune(line)
+		x, y := int(l[0]-'A')+1, int(l[2]-'X')+1
 
-		p1_total += p1_outcomes[choices[chars[2]]][choices[chars[0]]]
-		p2_total += p2_outcomes[choices[chars[2]]][choices[chars[0]]]
+		p1 += y
+		p2 += utils.Mod(y+x, 3) + 1
+
+		p1 += utils.Mod((y-x+1), 3) * 3
+		p2 += (y - 1) * 3
 	}
 
-	fmt.Printf("%v, %v\n", p1_total, p2_total)
+	fmt.Printf("%v\n", p1)
+	fmt.Printf("%v\n", p2)
 }

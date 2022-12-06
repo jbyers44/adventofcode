@@ -2,7 +2,6 @@ package main
 
 import (
 	"adventofcode2022/utils"
-	"bufio"
 	"fmt"
 )
 
@@ -13,24 +12,22 @@ func main() {
 
 func part1() {
 	file := utils.OpenFile("../../input/day6.txt")
-	scanner := bufio.NewScanner(file)
-	scanner.Scan()
+	lines := utils.FileLines(file)
 
-	line := scanner.Text()
+	a := 4
 
-	index := utils.UniqueIndex([]rune(line), 4)
+	index := utils.UniqueIndex([]rune(lines[0]), a)
 
-	fmt.Printf("%v\n", index+1)
+	fmt.Printf("%v\n", index+a)
 }
 
 func part2() {
 	file := utils.OpenFile("../../input/day6.txt")
-	scanner := bufio.NewScanner(file)
-	scanner.Scan()
+	lines := utils.FileLines(file)
 
-	line := scanner.Text()
+	a := 14
 
-	index := utils.UniqueIndex([]rune(line), 14)
+	index := utils.UniqueIndex([]rune(lines[0]), a)
 
-	fmt.Printf("%v\n", index+1)
+	fmt.Printf("%v\n", index+a)
 }

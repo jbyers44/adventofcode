@@ -2,39 +2,29 @@ package main
 
 import (
 	"adventofcode2022/utils"
-	"bufio"
 	"fmt"
 	"sort"
-	"strconv"
 )
 
 func main() {
 	file := utils.OpenFile("../../input/day1.txt")
-	scanner := bufio.NewScanner(file)
+	lines := utils.FileLines(file)
 
 	elfs := []int{0}
-	cur_elf := 0
 
-	for scanner.Scan() {
-		line := scanner.Text()
-
-		if line == "" {
-			elfs = append(elfs, 0)
-			cur_elf++
-		} else {
-			calories, _ := strconv.Atoi(line)
-			elfs[cur_elf] += calories
+	for i, j := 0, 0; i < len(lines); i++ {
+		if len(lines[i]) == 0 {
+			calories := utils.SumList(utils.StringsToInts(lines[j:i]))
+			elfs = append(elfs, calories)
+			j = i + 1
 		}
 	}
 
 	sort.Sort(sort.Reverse(sort.IntSlice(elfs)))
 
-	fmt.Printf("%v\n", elfs[0])
+	p1 := elfs[0]
+	p2 := utils.SumList(elfs[0:3])
 
-	total := 0
-	for _, calories := range elfs[0:3] {
-		total += calories
-	}
-
-	fmt.Printf("%v\n", total)
+	fmt.Printf("%v\n", p1)
+	fmt.Printf("%v\n", p2)
 }

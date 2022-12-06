@@ -2,10 +2,7 @@ package main
 
 import (
 	"adventofcode2022/utils"
-	"bufio"
 	"fmt"
-	"strconv"
-	"strings"
 )
 
 func main() {
@@ -15,43 +12,23 @@ func main() {
 
 func part1() {
 	file := utils.OpenFile("../../input/day5.txt")
-	scanner := bufio.NewScanner(file)
+	lines := utils.FileLines(file)
 
-	crates := make(map[int][]string)
+	setup, moves := utils.Split(lines, "")
 
-	for scanner.Scan() {
-		line := scanner.Text()
+	crates := setupCrates(setup)
 
-		if len(line) == 0 {
-			break
-		}
+	for _, move := range moves[1:] {
+		n := utils.Ints(move)
 
-		for c := 0; c < 9; c++ {
-			a := c*4 + 1
-			b := string(line[a])
-			if _, err := strconv.Atoi(b); err != nil && b != " " {
-				crates[c] = append(crates[c], string(line[a]))
-			}
+		for i := 0; i < n[0]; i++ {
+			val := crates[n[1]][0]
+			crates[n[1]] = crates[n[1]][1:]
+			crates[n[2]] = append([]string{val}, crates[n[2]]...)
 		}
 	}
 
-	for scanner.Scan() {
-		line := scanner.Text()
-
-		s := strings.Split(line, " ")
-
-		x, _ := strconv.Atoi(s[1])
-		a, _ := strconv.Atoi(s[3])
-		b, _ := strconv.Atoi(s[5])
-
-		for i := 0; i < x; i++ {
-			val := crates[a-1][0]
-			crates[a-1] = crates[a-1][1:]
-			crates[b-1] = append([]string{val}, crates[b-1]...)
-		}
-	}
-
-	for i := 0; i < 9; i++ {
+	for i := 1; i < 10; i++ {
 		fmt.Printf("%v", crates[i][0])
 	}
 
@@ -60,42 +37,40 @@ func part1() {
 
 func part2() {
 	file := utils.OpenFile("../../input/day5.txt")
-	scanner := bufio.NewScanner(file)
+	lines := utils.FileLines(file)
 
-	crates := make(map[int][]string)
+	setup, moves := utils.Split(lines, "")
 
-	for scanner.Scan() {
-		line := scanner.Text()
+	crates := setupCrates(setup)
 
-		if len(line) == 0 {
-			break
-		}
+	for _, move := range moves[1:] {
+		n := utils.Ints(move)
 
+		val := make([]string, n[0])
+		copy(val, crates[n[1]][0:n[0]])
+		crates[n[1]] = crates[n[1]][n[0]:]
+		crates[n[2]] = append(val, crates[n[2]]...)
+	}
+
+	for i := 1; i < 10; i++ {
+		fmt.Printf("%v", crates[i][0])
+	}
+
+	fmt.Printf("\n")
+}
+
+func setupCrates(s []string) map[int][]string {
+	crates := make(map[int][]string, 9)
+
+	for _, line := range s[:len(s)-1] {
 		for c := 0; c < 9; c++ {
-			a := c*4 + 1
-			b := string(line[a])
-			if _, err := strconv.Atoi(b); err != nil && b != " " {
-				crates[c] = append(crates[c], string(line[a]))
+			i := c*4 + 1
+			b := string(line[i])
+			if b != " " {
+				crates[c+1] = append(crates[c+1], b)
 			}
 		}
 	}
 
-	for scanner.Scan() {
-		line := scanner.Text()
-
-		s := strings.Split(line, " ")
-
-		x, _ := strconv.Atoi(s[1])
-		a, _ := strconv.Atoi(s[3])
-		b, _ := strconv.Atoi(s[5])
-
-		val := make([]string, x)
-		copy(val, crates[a-1][0:x])
-		crates[a-1] = crates[a-1][x:]
-		crates[b-1] = append(val, crates[b-1]...)
-	}
-
-	for i := 0; i < 9; i++ {
-		fmt.Printf("%v", crates[i][0])
-	}
+	return crates
 }

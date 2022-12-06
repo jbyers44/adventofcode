@@ -2,10 +2,7 @@ package main
 
 import (
 	"adventofcode2022/utils"
-	"bufio"
 	"fmt"
-	"strconv"
-	"strings"
 )
 
 func main() {
@@ -15,22 +12,13 @@ func main() {
 
 func part1() {
 	file := utils.OpenFile("../../input/day4.txt")
-	scanner := bufio.NewScanner(file)
+	lines := utils.FileLines(file)
 
 	total := 0
-	for scanner.Scan() {
-		line := scanner.Text()
+	for _, line := range lines {
+		n := utils.Ints(line)
 
-		elves := strings.Split(line, ",")
-
-		z := strings.Split(elves[0]+"-"+elves[1], "-")
-
-		a, _ := strconv.Atoi(z[0])
-		b, _ := strconv.Atoi(z[1])
-		c, _ := strconv.Atoi(z[2])
-		d, _ := strconv.Atoi(z[3])
-
-		if a <= c && c <= d && d <= b || c <= a && a <= b && b <= d {
+		if n[0] <= n[2] && n[2] <= n[3] && n[3] <= n[1] || n[2] <= n[0] && n[0] <= n[1] && n[1] <= n[3] {
 			total++
 		}
 	}
@@ -40,22 +28,13 @@ func part1() {
 
 func part2() {
 	file := utils.OpenFile("../../input/day4.txt")
-	scanner := bufio.NewScanner(file)
+	lines := utils.FileLines(file)
 
 	total := 0
-	for scanner.Scan() {
-		line := scanner.Text()
+	for _, line := range lines {
+		n := utils.Ints(line)
 
-		elves := strings.Split(line, ",")
-
-		z := strings.Split(elves[0]+"-"+elves[1], "-")
-
-		a, _ := strconv.Atoi(z[0])
-		b, _ := strconv.Atoi(z[1])
-		c, _ := strconv.Atoi(z[2])
-		d, _ := strconv.Atoi(z[3])
-
-		if b >= c && d >= a {
+		if n[1] >= n[2] && n[3] >= n[0] {
 			total++
 		}
 	}
