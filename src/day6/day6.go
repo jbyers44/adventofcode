@@ -18,7 +18,7 @@ func part1() {
 
 	line := scanner.Text()
 
-	_, index := utils.UniqueSlice([]rune(line), 4)
+	index := utils.UniqueIndex([]rune(line), 4)
 
 	fmt.Printf("%v\n", index+1)
 }
@@ -30,7 +30,7 @@ func part2() {
 
 	line := scanner.Text()
 
-	_, index := utils.UniqueSlice([]rune(line), 14)
+	index := utils.UniqueIndex([]rune(line), 14)
 
 	fmt.Printf("%v\n", index+1)
 }

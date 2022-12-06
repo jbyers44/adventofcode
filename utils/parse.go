@@ -23,7 +23,7 @@ func IsUnique(buf []rune) bool {
 	return true
 }
 
-func UniqueSlice(data []rune, len int) (unique []rune, index int) {
+func UniqueIndex(data []rune, len int) (index int) {
 	buf := make([]rune, len)
 	index = -1
 
