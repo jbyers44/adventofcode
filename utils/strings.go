@@ -51,3 +51,14 @@ func IndexManyLetters(s string) []int {
 
 	return i
 }
+
+func StringToInts(s string) []int {
+	ints := []int{}
+
+	for i := 0; i < len(s); i++ {
+		v, _ := strconv.Atoi(string(s[i]))
+		ints = append(ints, v)
+	}
+
+	return ints
+}
